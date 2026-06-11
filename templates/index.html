@@ -2,29 +2,120 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sneaker Drop - Preventa Exclusiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Arial', sans-serif; text-align: center; background: #000; color: #fff; padding-top: 50px; }
-        .reloj { font-size: 50px; color: #00ffcc; margin: 20px 0; font-weight: bold; }
-        .btn-comprar { padding: 15px 40px; font-size: 24px; background: #ff4500; color: white; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-weight: bold;}
-        .btn-comprar:disabled { background: #444; color: #888; cursor: not-allowed; }
-        .inventario { font-size: 20px; color: #ffcc00; margin-bottom: 20px; }
+        /* Estilos Profesionales (CSS) */
+        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #212529; }
+        
+        /* Menú Superior */
+        header { background: #000; color: #fff; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100;}
+        header h1 { margin: 0; font-size: 24px; font-weight: 900; letter-spacing: 3px; color: #ff4500; text-transform: uppercase;}
+        nav a { color: #fff; text-decoration: none; margin-left: 25px; font-weight: 700; text-transform: uppercase; font-size: 13px; transition: color 0.3s;}
+        nav a:hover { color: #ff4500; }
+
+        /* Sección del Temporizador (Toque Pro 1) */
+        .hero { background: linear-gradient(135deg, #111 0%, #222 100%); color: #fff; text-align: center; padding: 70px 20px; border-bottom: 5px solid #ff4500;}
+        .hero h2 { font-size: 38px; margin-bottom: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;}
+        .reloj { font-size: 65px; color: #fff; font-weight: 900; text-shadow: 0 0 20px rgba(255, 69, 0, 0.8); margin: 25px 0; font-variant-numeric: tabular-nums;}
+
+        /* Producto Principal (Toque Pro 2) */
+        .main-product { display: flex; max-width: 1100px; margin: 60px auto; background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); align-items: center;}
+        .main-product img { width: 50%; border-radius: 15px; object-fit: cover; box-shadow: 0 10px 20px rgba(0,0,0,0.1);}
+        .product-info { width: 50%; padding: 0 50px; }
+        .product-info h3 { font-size: 36px; margin-top: 0; font-weight: 900; text-transform: uppercase; line-height: 1.2;}
+        .product-info p { color: #6c757d; font-size: 16px; line-height: 1.6; margin-bottom: 25px;}
+        .price { font-size: 32px; color: #000; font-weight: 900; margin-bottom: 25px; }
+        
+        .inventario { font-size: 16px; color: #495057; margin-bottom: 30px; font-weight: 700; background: #f1f3f5; padding: 12px 20px; border-radius: 8px; display: inline-block; border-left: 5px solid #ff4500;}
+        .inventario span { color: #ff4500; font-size: 24px; font-weight: 900; margin: 0 5px;}
+
+        .btn-comprar { width: 100%; padding: 20px; font-size: 20px; background: #ff4500; color: white; border: none; border-radius: 10px; cursor: pointer; text-transform: uppercase; font-weight: 900; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(255, 69, 0, 0.4);}
+        .btn-comprar:hover { background: #e03e00; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 69, 0, 0.6);}
+        .btn-comprar:disabled { background: #343a40; color: #adb5bd; cursor: not-allowed; box-shadow: none; transform: none;}
+
+        /* Galería de Otros Modelos */
+        .galeria { max-width: 1100px; margin: 80px auto 50px; text-align: center; }
+        .galeria h3 { font-size: 32px; margin-bottom: 40px; font-weight: 900; text-transform: uppercase;}
+        .grid-modelos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .modelo-card { background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.05); transition: transform 0.3s;}
+        .modelo-card:hover { transform: translateY(-10px); }
+        .modelo-card img { width: 100%; border-radius: 10px; height: 250px; object-fit: cover;}
+        .modelo-card h4 { margin: 20px 0 10px; font-size: 20px; font-weight: 900; text-transform: uppercase;}
+        .modelo-card p { color: #ff4500; font-weight: 700; margin: 0;}
+
+        /* Adaptación para celulares */
+        @media (max-width: 768px) {
+            .main-product { flex-direction: column; padding: 20px;}
+            .main-product img, .product-info { width: 100%; padding: 0; }
+            .product-info { margin-top: 40px; }
+            .grid-modelos { grid-template-columns: 1fr; padding: 0 20px;}
+            header { flex-direction: column; text-align: center; padding: 20px;}
+            nav { margin-top: 20px; display: flex; justify-content: center; flex-wrap: wrap; gap: 15px;}
+            nav a { margin: 0; }
+            .reloj { font-size: 40px; }
+        }
     </style>
 </head>
 <body>
 
-    <h1>🔥 SNEAKER DROP EXCLUSIVO 🔥</h1>
-    <h2>EL MODELO SE LIBERA EN:</h2>
-    
-    <div id="reloj" class="reloj">Cargando...</div>
+    <header>
+        <h1>SNEAKER DROP</h1>
+        <nav>
+            <a href="#">Lanzamientos</a>
+            <a href="#modelos">Catálogo</a>
+            <a href="#">Nosotros</a>
+            <a href="#">Contacto</a>
+        </nav>
+    </header>
 
-    <p class="inventario">Pares estrictamente limitados: <span id="cantidad">{{ inventario }}</span> disponibles</p>
-    
-    <button id="btnComprar" class="btn-comprar" onclick="procesarCompra()">Comprar Ahora</button>
+    <section class="hero">
+        <h2>🔥 DROP EXCLUSIVO 🔥</h2>
+        <p>El acceso se cierra cuando el reloj llegue a cero:</p>
+        <div id="reloj" class="reloj">Calculando...</div>
+    </section>
+
+    <section class="main-product">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Nike Air Max Inferno">
+        
+        <div class="product-info">
+            <h3>Air Max "Inferno Red" Exclusivo</h3>
+            <p>Diseñados con tecnología de punta y un color rojo intenso que dominará las calles. Esta es una edición estrictamente limitada para coleccionistas.</p>
+            <div class="price">$3,599 MXN</div>
+            
+            <div class="inventario">
+                ¡Rápido! Solo quedan <span id="cantidad">{{ inventario }}</span> pares a nivel nacional
+            </div>
+            
+            <button id="btnComprar" class="btn-comprar" onclick="procesarCompra()">Finalizar Compra</button>
+        </div>
+    </section>
+
+    <section id="modelos" class="galeria">
+        <h3>Próximos Lanzamientos</h3>
+        <div class="grid-modelos">
+            <div class="modelo-card">
+                <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Modelo Blanco">
+                <h4>Air Force "Pure White"</h4>
+                <p>Próximamente</p>
+            </div>
+            <div class="modelo-card">
+                <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Modelo Azul">
+                <h4>Jordan 1 "Ocean Blue"</h4>
+                <p>Próximamente</p>
+            </div>
+            <div class="modelo-card">
+                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Modelo Amarillo">
+                <h4>Yeezy "Desert Sun"</h4>
+                <p>Próximamente</p>
+            </div>
+        </div>
+    </section>
 
     <script>
         // Lógica del Temporizador
-        const fechaLanzamiento = new Date().getTime() + (2 * 24 * 60 * 60 * 1000); // Faltan 2 días
+        const fechaLanzamiento = new Date().getTime() + (2 * 24 * 60 * 60 * 1000); 
         setInterval(function() {
             const ahora = new Date().getTime();
             const distancia = fechaLanzamiento - ahora;
@@ -35,23 +126,37 @@
             document.getElementById("reloj").innerHTML = dias + "d " + horas + "h " + minutos + "m " + segundos + "s ";
         }, 1000);
 
-        // Lógica de Compra y Sold Out
+        // Verificación inicial de seguridad al cargar la página
+        window.onload = function() {
+            let inventarioActual = parseInt(document.getElementById("cantidad").innerText);
+            if (inventarioActual <= 0) {
+                marcarAgotado();
+            }
+        };
+
+        // Lógica de Compra
         function procesarCompra() {
             fetch('/comprar', { method: 'POST' })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     document.getElementById("cantidad").innerText = data.inventario;
-                    alert("¡Reserva exitosa! Revisa el bot de Telegram.");
+                    alert("¡Compra confirmada! Notificación enviada al administrador.");
                     if (data.inventario === 0) {
-                        let btn = document.getElementById("btnComprar");
-                        btn.innerText = "AGOTADO / SOLD OUT";
-                        btn.disabled = true;
+                        marcarAgotado();
                     }
                 } else {
-                    alert("Lo sentimos, los tenis se han agotado.");
+                    alert("Lo sentimos, este modelo ya se ha agotado.");
+                    marcarAgotado();
                 }
-            });
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function marcarAgotado() {
+            let btn = document.getElementById("btnComprar");
+            btn.innerText = "AGOTADO / SOLD OUT";
+            btn.disabled = true;
         }
     </script>
 </body>
