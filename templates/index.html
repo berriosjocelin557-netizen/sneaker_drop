@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sneaker Drop - Preventa Exclusiva</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; text-align: center; background: #000; color: #fff; padding-top: 50px; }
+        .reloj { font-size: 50px; color: #00ffcc; margin: 20px 0; font-weight: bold; }
+        .btn-comprar { padding: 15px 40px; font-size: 24px; background: #ff4500; color: white; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-weight: bold;}
+        .btn-comprar:disabled { background: #444; color: #888; cursor: not-allowed; }
+        .inventario { font-size: 20px; color: #ffcc00; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <h1>🔥 SNEAKER DROP EXCLUSIVO 🔥</h1>
+    <h2>EL MODELO SE LIBERA EN:</h2>
+    
+    <div id="reloj" class="reloj">Cargando...</div>
+
+    <p class="inventario">Pares estrictamente limitados: <span id="cantidad">{{ inventario }}</span> disponibles</p>
+    
+    <button id="btnComprar" class="btn-comprar" onclick="procesarCompra()">Comprar Ahora</button>
+
+    <script>
+        // Lógica del Temporizador
+        const fechaLanzamiento = new Date().getTime() + (2 * 24 * 60 * 60 * 1000); // Faltan 2 días
+        setInterval(function() {
+            const ahora = new Date().getTime();
+            const distancia = fechaLanzamiento - ahora;
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+            document.getElementById("reloj").innerHTML = dias + "d " + horas + "h " + minutos + "m " + segundos + "s ";
+        }, 1000);
+
+        // Lógica de Compra y Sold Out
+        function procesarCompra() {
+            fetch('/comprar', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById("cantidad").innerText = data.inventario;
+                    alert("¡Reserva exitosa! Revisa el bot de Telegram.");
+                    if (data.inventario === 0) {
+                        let btn = document.getElementById("btnComprar");
+                        btn.innerText = "AGOTADO / SOLD OUT";
+                        btn.disabled = true;
+                    }
+                } else {
+                    alert("Lo sentimos, los tenis se han agotado.");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
